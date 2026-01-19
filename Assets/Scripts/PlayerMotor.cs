@@ -28,6 +28,7 @@ public class PlayerMotor : MonoBehaviour
     public void Move(Vector2 input)
     {
         Vector3 move = transform.right * input.x + transform.forward * input.y;
+
         controller.Move(move * moveSpeed * Time.deltaTime);
     }
 

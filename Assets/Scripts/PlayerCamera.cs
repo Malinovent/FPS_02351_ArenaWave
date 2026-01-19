@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform cam;
+
+    [SerializeField] private float minPitch = -30f;
+    [SerializeField] private float maxPitch = 60f;
+    [SerializeField] private float sensitivity = 0.5f;
+
+    private float currentPitch;
+
 
     public void Rotate(float inputY)
     {
+        currentPitch -= inputY * sensitivity; // invert if needed
+        currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
 
+        cam.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
     }
 }

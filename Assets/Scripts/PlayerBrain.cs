@@ -48,7 +48,6 @@ public class PlayerBrain : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        
     }
 
     private void OnLook(InputAction.CallbackContext context)
