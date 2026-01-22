@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5582405547955269545}
   - component: {fileID: 8795357487347376025}
   - component: {fileID: 8762856370516718989}
-  - component: {fileID: 9222490691351122778}
   - component: {fileID: 7219868387690510237}
   - component: {fileID: 6110232248087437403}
   - component: {fileID: 5162299884663163538}
@@ -96,29 +95,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &9222490691351122778
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7086641714917277406}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &7219868387690510237
 CharacterController:
   m_ObjectHideFlags: 0
@@ -187,7 +163,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
   controller: {fileID: 7219868387690510237}
-  moveSpeed: 1
+  walkSpeed: 5
+  crouchSpeed: 2
+  crouchHeight: 1
+  sprintSpeed: 8
+  maxJumps: 2
   jumpForce: 5
   gravity: -9.81
 --- !u!1 &9141825336122331656

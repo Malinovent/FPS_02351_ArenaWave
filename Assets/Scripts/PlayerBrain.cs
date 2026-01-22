@@ -25,6 +25,11 @@ public class PlayerBrain : MonoBehaviour
         controls.Player.Look.performed += OnLook;
         controls.Player.Look.canceled += OnLook;
 
+        controls.Player.Crouch.performed += OnCrouch;
+
+        controls.Player.Sprint.performed += OnSprintStart;
+        controls.Player.Sprint.canceled += OnSprintEnd;
+
         controls.Player.Jump.performed += OnJump;
     }
 
@@ -56,10 +61,21 @@ public class PlayerBrain : MonoBehaviour
         lookInput = context.ReadValue<Vector2>();
     }
 
-    private void OnSprint(InputAction.CallbackContext context)
+    private void OnSprintStart(InputAction.CallbackContext context)
     {
-
+        playerMotor.SprintStart();
     }
+
+    private void OnSprintEnd(InputAction.CallbackContext context)
+    {
+        playerMotor.SprintEnd();
+    }
+
+    private void OnCrouch(InputAction.CallbackContext context)
+    {
+        playerMotor.ToggleCrouch();
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
