@@ -42,7 +42,8 @@ public class PlayerBrain : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        playerMotor.Jump();
+        if(context.performed)
+            playerMotor.Jump();
     }
 
     private void OnMove(InputAction.CallbackContext context)
