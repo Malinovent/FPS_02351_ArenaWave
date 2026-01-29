@@ -3,7 +3,7 @@
 public class WeaponPistol : WeaponBase
 {
 
-    public override void OnFire()
+    public override void OnFirePressed()
     {
         if (Camera.main)
         {
@@ -14,16 +14,21 @@ public class WeaponPistol : WeaponBase
                 Debug.Log($"Hit {hit.collider.gameObject.name}");
             }
         }
-        //RaycastHit hit;
-        //float maxDistance;
-
-        //Physics.Raycast()
 
         Debug.Log("I Fired the pistol!");
     }
 
-    
+    public override void OnFireReleased()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnReload()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UpdateWeapon()
     {
         throw new System.NotImplementedException();
     }

@@ -35,7 +35,8 @@ public class PlayerBrain : MonoBehaviour
 
         controls.Player.Jump.performed += OnJump;
 
-        controls.Player.Fire.performed += OnFire;
+        controls.Player.Fire.performed += OnFirePressed;
+        controls.Player.Fire.canceled += OnFireReleased;
         controls.Player.Reload.performed += OnReload;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -51,6 +52,8 @@ public class PlayerBrain : MonoBehaviour
 
         playerMotor.Rotate(lookInput.x);
         playerCamera.Rotate(lookInput.y);
+
+        weapons[weaponIndex].UpdateWeapon();
     }
 
     private void OnJump(InputAction.CallbackContext context)
@@ -84,9 +87,14 @@ public class PlayerBrain : MonoBehaviour
         playerMotor.ToggleCrouch();
     }
 
-    private void OnFire(InputAction.CallbackContext context)
+    private void OnFirePressed(InputAction.CallbackContext context)
     {
-        weapons[weaponIndex].OnFire();
+        weapons[weaponIndex].OnFirePressed();
+    }
+
+    private void OnFireReleased(InputAction.CallbackContext context)
+    {
+        weapons[weaponIndex].OnFireReleased();
     }
 
     private void OnReload(InputAction.CallbackContext context)
