@@ -7,6 +7,9 @@ public class PlayerBrain : MonoBehaviour
     [SerializeField] private PlayerMotor playerMotor;
     [SerializeField] private PlayerCamera playerCamera;
 
+    [SerializeField] private WeaponBase[] weapons;
+    private int weaponIndex = 0;
+
     InputPlayer controls;
 
     private bool isActive = true;
@@ -31,6 +34,11 @@ public class PlayerBrain : MonoBehaviour
         controls.Player.Sprint.canceled += OnSprintEnd;
 
         controls.Player.Jump.performed += OnJump;
+
+        controls.Player.Fire.performed += OnFire;
+        controls.Player.Reload.performed += OnReload;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -76,11 +84,16 @@ public class PlayerBrain : MonoBehaviour
         playerMotor.ToggleCrouch();
     }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnFire(InputAction.CallbackContext context)
     {
-       
+        weapons[weaponIndex].OnFire();
     }
+
+    private void OnReload(InputAction.CallbackContext context)
+    {
+        weapons[weaponIndex].OnReload();
+    }
+
+
 
 }
