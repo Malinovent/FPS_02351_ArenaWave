@@ -22,7 +22,7 @@ public class WeaponSniper : WeaponBase
         if (ammo.HasAmmo() && !ammo.IsReloading && RoF.CanFire)
         {
             ammo.FireShot();
-            raycaster.FireShot();
+            //raycaster.FireShot();
         }
 
     }

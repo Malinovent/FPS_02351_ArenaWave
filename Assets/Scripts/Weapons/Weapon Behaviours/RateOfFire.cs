@@ -16,6 +16,12 @@ public class RateOfFire : MonoBehaviour
         timeBetweenShots = 1f / roundsPerSecond;
     }
 
+    public void FireShot()
+    {
+        canFire = false;
+        fireTimer = 0;
+    }
+
     public void UpdateFire(float deltaTime)
     {
         if (CanFire)

@@ -15,7 +15,7 @@ public class WeaponPistol : WeaponBase
         if(ammo.HasAmmo() && !ammo.IsReloading)
         {
             ammo.FireShot();
-            raycaster.FireShot();
+            //raycaster.FireShot();
         }
       
     }
