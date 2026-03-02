@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class WeaponPistol : WeaponBase
+public class WeaponPistol : WeaponBase, IFirePressed
 {
     //Ammo
     [SerializeField] private Ammo ammo;
     //Raycasting
     [SerializeField] private Raycaster raycaster;
 
-    public override void OnFirePressed()
+    public void OnFirePressed()
     {
         //0 - Condition (Un a du ammo, pas reload)
         //1 - Enlever un ammo
@@ -15,14 +15,11 @@ public class WeaponPistol : WeaponBase
         if(ammo.HasAmmo() && !ammo.IsReloading)
         {
             ammo.FireShot();
+
+            WeaponUpdater.UpdateWeaponInformation(ammo, weaponName);
             //raycaster.FireShot();
         }
       
-    }
-
-    public override void OnFireReleased()
-    {
-        
     }
 
     public override void OnReload()
@@ -32,6 +29,7 @@ public class WeaponPistol : WeaponBase
         if(ammo.CanReload())
         {
             ammo.StartReload();
+            WeaponUpdater.UpdateWeaponInformation(ammo, weaponName);
         }
     }
 
@@ -39,4 +37,5 @@ public class WeaponPistol : WeaponBase
     {
         ammo.UpdateReload(Time.deltaTime);
     }
+
 }

@@ -31,6 +31,7 @@ public class PlayerBrain : MonoBehaviour
         controls.Player.Crouch.performed += OnCrouch;
 
         controls.Player.Sprint.performed += OnSprintStart;
+
         controls.Player.Sprint.canceled += OnSprintEnd;
 
         controls.Player.Jump.performed += OnJump;
@@ -89,19 +90,30 @@ public class PlayerBrain : MonoBehaviour
 
     private void OnFirePressed(InputAction.CallbackContext context)
     {
-        weapons[weaponIndex].OnFirePressed();
+        IFirePressed firePressed = weapons[weaponIndex].GetComponent<IFirePressed>();
+        firePressed?.OnFirePressed();
+
+        //weapons[weaponIndex].OnFirePressed();
     }
 
     private void OnFireReleased(InputAction.CallbackContext context)
     {
-        weapons[weaponIndex].OnFireReleased();
+        IFireReleased firePressed = weapons[weaponIndex].GetComponent<IFireReleased>();
+        firePressed?.OnFireReleased();
     }
 
     private void OnReload(InputAction.CallbackContext context)
     {
         weapons[weaponIndex].OnReload();
     }
+}
 
+public interface IFirePressed
+{
+    public void OnFirePressed();
+}
 
-
+public interface IFireReleased
+{
+    public void OnFireReleased();
 }

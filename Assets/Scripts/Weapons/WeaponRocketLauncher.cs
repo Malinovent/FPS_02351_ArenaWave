@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class WeaponRocketLauncher : WeaponBase
+public class WeaponRocketLauncher : WeaponBase, IFirePressed, IFireReleased
 {
     [SerializeField] Ammo ammo;
     [SerializeField] ProjectileSpawner projectile;
     [SerializeField] RateOfFire RoF;
 
-    public override void OnFirePressed()
+    public void OnFirePressed()
     {
         if (RoF.CanFire)
         {
@@ -15,7 +15,7 @@ public class WeaponRocketLauncher : WeaponBase
         }
     }
 
-    public override void OnFireReleased()
+    public void OnFireReleased()
     {
         
     }

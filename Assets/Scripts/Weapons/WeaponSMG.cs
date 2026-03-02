@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponSMG : WeaponBase
+public class WeaponSMG : WeaponBase, IFirePressed, IFireReleased
 {
     [Header("Ammo Parameters")]
     [SerializeField] private int maxAmmo = 10;
@@ -51,12 +51,12 @@ public class WeaponSMG : WeaponBase
         }
     }
 
-    public override void OnFirePressed()
+    public void OnFirePressed()
     {
         isFiring = true;
     }
 
-    public override void OnFireReleased()
+    public void OnFireReleased()
     {
         isFiring = false;
     }

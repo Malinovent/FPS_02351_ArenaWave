@@ -1,11 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Ammo), typeof(Raycaster), typeof(RateOfFire))]
-public class WeaponSniper : WeaponBase
+public class WeaponSniper : WeaponBase, IFirePressed
 {
-    private Ammo ammo;
-    private Raycaster raycaster;
-    private RateOfFire RoF;
+    [SerializeField] Ammo ammo;
+    [SerializeField] Raycaster raycaster;
+    [SerializeField] RateOfFire RoF;
 
     private void Awake()
     {
@@ -14,7 +13,7 @@ public class WeaponSniper : WeaponBase
         RoF = GetComponent<RateOfFire>();
     }
 
-    public override void OnFirePressed()
+    public void OnFirePressed()
     {
         //0 - Condition (Un a du ammo, pas reload)
         //1 - Enlever un ammo
@@ -22,16 +21,11 @@ public class WeaponSniper : WeaponBase
         if (ammo.HasAmmo() && !ammo.IsReloading && RoF.CanFire)
         {
             ammo.FireShot();
+            WeaponUpdater.UpdateWeaponInformation(ammo, weaponName);
             //raycaster.FireShot();
         }
 
     }
-
-    public override void OnFireReleased()
-    {
-
-    }
-
     public override void OnReload()
     {
         //0 - Leftover magazine, ammo n'est pas au max, pas reload
