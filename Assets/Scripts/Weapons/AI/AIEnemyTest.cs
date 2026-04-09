@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class AIEnemyTest : AIEnemyBase
@@ -6,7 +7,22 @@ public class AIEnemyTest : AIEnemyBase
     [SerializeField] private AIEnemyTestStates currentState;
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private HearingBehaviour hearingBehaviour;
+    [SerializeField] private PatrolBehaviour patrolBehaviour;
     [SerializeField] private Animator animator;
+
+    void Start()
+    {
+        patrolBehaviour.Initialize(navMeshAgent);
+        SetState(AIEnemyTestStates.PATROL);
+
+        //patrolBehaviour.onWaypointReached += OnPatrolWaypointReached;
+    }
+
+    //Callback
+    /*private void OnPatrolWaypointReached()
+    {
+        navMeshAgent.SetDestination(patrolBehaviour.currentPatrolWaypoint.position);
+    }*/
 
     private void Update()
     {
@@ -32,10 +48,6 @@ public class AIEnemyTest : AIEnemyBase
     {
         switch (currentState)
         {
-            case AIEnemyTestStates.IDLE:
-                IdleBehaviour();
-                break;
-
             case AIEnemyTestStates.CHASE:
                 ChaseBehaviour();
                 break;
@@ -61,16 +73,15 @@ public class AIEnemyTest : AIEnemyBase
             return;
 
         switch (newState)
-        {
-            case AIEnemyTestStates.IDLE:
-                animator.SetBool("Idle", true);
-                hearingBehaviour.onHeardPlayer += OnHeardPlayer;
-                break;
-
+        {               
             case AIEnemyTestStates.CHASE:
+                //navMeshAgent.SetDestination();
                 break;
 
             case AIEnemyTestStates.PATROL:
+                animator.SetBool("Idle", true);
+                hearingBehaviour.onHeardPlayer += OnHeardPlayer;
+                patrolBehaviour.EnterState();
                 break;
 
             case AIEnemyTestStates.ATTACK:
@@ -90,14 +101,9 @@ public class AIEnemyTest : AIEnemyBase
 
     #region BEHAVIOURS
 
-    private void IdleBehaviour()
-    {
-     
-    }
-
     private void PatrolBehaviour()
     {
-
+        patrolBehaviour.UpdateBehaviour();
     }
 
     private void AttackBehaviour()
@@ -125,7 +131,6 @@ public class AIEnemyTest : AIEnemyBase
 
     private enum AIEnemyTestStates
     {
-        IDLE,
         PATROL,
         CHASE,
         ATTACK,

@@ -6,6 +6,7 @@ public class PlayerBrain : MonoBehaviour
 {
     [SerializeField] private PlayerMotor playerMotor;
     [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private Interactor interactor;
 
     [SerializeField] private WeaponBase[] weapons;
     private int weaponIndex = 0;
@@ -40,7 +41,14 @@ public class PlayerBrain : MonoBehaviour
         controls.Player.Fire.canceled += OnFireReleased;
         controls.Player.Reload.performed += OnReload;
 
+        controls.Player.Interact.performed += OnInteract;
+
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        interactor.OnInteract();
     }
 
     void Update()
@@ -55,6 +63,8 @@ public class PlayerBrain : MonoBehaviour
         playerCamera.Rotate(lookInput.y);
 
         weapons[weaponIndex].UpdateWeapon();
+
+        interactor.UpdateInteraction();
     }
 
     private void OnJump(InputAction.CallbackContext context)
